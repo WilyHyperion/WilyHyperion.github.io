@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <head>
-    <title>Hibub-idk</title>
+    <title>WilyHyperion</title>
     <style>
         body{   
-            background-color: #00072D;
+            background-color: #34623F;
         }
         .page{
             position: fixed;
@@ -13,36 +13,72 @@
             right: 0;
             overflow: auto;
         }
-        .top{
-            width: 100%;
-            height: 80%;
-            background-color: #001c55;
-            border-width: 0px 0px 5px 0px;
-            border-color: black;
-            border-style: solid;
+        .title{
+
+            width:100%;
+            background-color: #607744;
+            text-align: center;
+            height: 150px;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-content: center;
+            flex-direction: column; 
+            margin-bottom: 10px;
         }
-        @keyframes in{
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        .EntryOne{
+            padding-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
         }
-        .center-top
-        {
-            background-color: #0E6BA8;
-            width: 100%;
-            height: 40%;
-            animation-name: in;
-            animation-duration: 5s;
+        .leftEntryOne{
+            width: 50%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column; 
+            background-color: gray;
+        }
+        .rightEntryOne{
+            width: 50%;
+            height: 400px;
+            background-color: #FF0000;
+        }
+        .leftEntryOne h1{
+            text-align: center;
+            font-size: 50px;
+        }
+        .leftEntryTwo{
+            width: 50%;
+            height: 400px;
+            background-color: #FF0000;
+        }
+        .rightEntryTwo{
+            width: 50%;
+            height: 400px;
+            background-color: gray;
+        }
+        .EntryTwo{
+            display: flex;
+            justify-content: center;
+            align-content: center;
         }
     </style>
 </head>
 <body>
+     <!--https://coolors.co/b39c4d-768948-607744-34623f-1e2f23-->
     <div class = "page">
-    <div class = "top">
-        <div class = "center-top">
+        <div class = "title">
+            ABC
         </div>
+        <div class = "EntryOne">
+            <div class = "leftEntryOne"><h1>entry one</h1> </div>
+            <div class = "rightEntryOne"></div>
+        </div>
+        <div class = "EntryTwo">
+            <div class = "leftEntryTwo"></div>
+            <div class = "rightEntryTwo"></div>
     </div>
 </div> 
 </body>
