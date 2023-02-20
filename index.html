@@ -1,98 +1,150 @@
 <!DOCTYPE html>
 <head>
-    <title>WilyHyperion</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Righteous">
-    <style>
-        body{
-            background-color: #1E2F23;
-        }
-        .page{
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            overflow: auto;
-        }
-        .title h2{
-            font-family: "Righteous", sans-serif;
-            font-size: 50px;
-        }
-        .title{
-
-            width:100%;
-            background-color: #607744;
-            text-align: center;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            flex-direction: column;
-
-        }
-        .EntryOne{
-            height: 110%;
-            padding-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-        }
-        .leftEntryOne{
-            width: 80%;
-            height:90%;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            flex-direction: column;
-            background-color: #34623F;
-        }
-        .rightEntryOne{
-            width: 50%;
-            height: 90%;
-            background-color: #34623F;
-        }
-        .leftEntryOne h1{
-            padding: 20px;
-            text-align:left;
-            font-size: 50px;
-        }
-        .leftEntryOne p{
-            padding: 5px;
-            line-height: 2;
-            font-size: 20px;
-        }
-        .leftEntryTwo{
-            width: 50%;
-            height: 400px;
-            background-color: #FF0000;
-        }
-        .rightEntryTwo{
-            width: 50%;
-            height: 400px;
-            background-color: gray;
-        }
-        .EntryTwo{
-            display: flex;
-            justify-content: center;
-            align-content: center;
-        }
-    </style>
+  <title>WilyHyperion</title>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Righteous"
+  />
+  <style>
+    :root {
+    }
+    body {
+      background-color: #1e2f23;
+    }
+    .page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      overflow: auto;
+    }
+    .title h2 {
+      font-family: "Righteous", sans-serif;
+      font-size: 50px;
+    }
+    .title {
+      width: 100%;
+      background-color: #607744;
+      text-align: center;
+      height: 90%;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+    }
+    .EntryOne {
+      height: 110%;
+      padding-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+    }
+    .leftEntryOne {
+      width: 80%;
+      height: 90%;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-direction: column;
+      background-color: #34623f;
+    }
+    .rightEntryOne {
+      width: 50%;
+      height: 90%;
+      background-color: #34623f;
+    }
+    .leftEntryOne h1 {
+      padding: 20px;
+      text-align: left;
+      font-size: 50px;
+    }
+    .leftEntryOne p {
+      padding: 5px;
+      line-height: 2;
+      font-size: 20px;
+    }
+    .leftEntryTwo {
+      width: 50%;
+      height: 400px;
+      background-color: #ff0000;
+    }
+    .rightEntryTwo {
+      width: 50%;
+      height: 400px;
+      background-color: gray;
+    }
+    .EntryTwo {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+    }
+    @keyframes fadeAndMove {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    .letter {
+        display: inline-block;
+      color: black;
+      animation: fadeIn 3s;
+    }
+  </style>
 </head>
 <body>
-     <!--https://coolors.co/b39c4d-768948-607744-34623f-1e2f23-->
-    <div class = "page">
-        <div class = "title">
-            <h2>WilyHyperion</h2>
-        </div>
-        <div class = "EntryOne">
-            <div class = "leftEntryOne">
-                <h1>entry one</h1>
-                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate metus vel magna ornare vestibulum. Donec congue tempor nibh id imperdiet. Nam nisl orci, blandit ac ligula vulputate, euismod sagittis turpis. Etiam scelerisque quam commodo, suscipit augue eget, tincidunt lectus. Mauris porta quam at quam sodales semper. Curabitur et mi facilisis, commodo libero eget, mattis nunc. Donec ut dui fringilla, iaculis augue at, faucibus quam. </p></div>
-            <div class = "rightEntryOne"></div>
-        </div>
-        <div class = "EntryTwo">
-            <div class = "leftEntryTwo"></div>
-            <div class = "rightEntryTwo"></div>
+  <!--https://coolors.co/b39c4d-768948-607744-34623f-1e2f23-->
+  <div class="page">
+    <div class="title">
+      <h2>
+        <div class="letter">W</div>
+        <div class="letter">i</div>
+        <div class="letter">l</div>
+        <div class="letter">y</div>
+        <div class="letter">H</div>
+        <div class="letter">y</div>
+        <div class="letter">p</div>
+        <div class="letter">e</div>
+        <div class="letter">r</div>
+        <div class="letter">i</div>
+        <div class="letter">o</div>
+        <div class="letter">n</div>
+      </h2>
     </div>
-</div>
+    <div class="EntryOne">
+      <div class="leftEntryOne">
+        <h1>entry one</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+          vulputate metus vel magna ornare vestibulum. Donec congue tempor nibh
+          id imperdiet. Nam nisl orci, blandit ac ligula vulputate, euismod
+          sagittis turpis. Etiam scelerisque quam commodo, suscipit augue eget,
+          tincidunt lectus. Mauris porta quam at quam sodales semper. Curabitur
+          et mi facilisis, commodo libero eget, mattis nunc. Donec ut dui
+          fringilla, iaculis augue at, faucibus quam.
+        </p>
+      </div>
+      <div class="rightEntryOne"></div>
+    </div>
+    <div class="EntryTwo">
+      <div class="leftEntryTwo"></div>
+      <div class="rightEntryTwo"></div>
+    </div>
+  </div>
+  <script>
+    let letters = document.querySelectorAll(".letter");
+    for (let i = 0; i < letters.length; i++) {
+      letters[i].style.animationDuration = 2 + (i * 0.6) + "s";
+    }
+  </script>
 </body>
