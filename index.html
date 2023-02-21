@@ -44,6 +44,7 @@
       align-content: center;
     }
     .leftEntryOne {
+      z-index: 2;
       width: 80%;
       height: 90%;
       display: flex;
@@ -53,6 +54,7 @@
       background-color: #34623f;
     }
     .rightEntryOne {
+      z-index: 2;
       width: 50%;
       height: 90%;
       background-color: #34623f;
@@ -82,14 +84,6 @@
       justify-content: center;
       align-content: center;
     }
-    @keyframes fadeAndMove {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
     @keyframes fadeIn {
       0% {
         opacity: 0;
@@ -104,11 +98,10 @@
       animation: fadeIn 3s;
     }
     #background{
-      width: 100%;
+      width: 70%;
       opacity: 90%;
       border-radius: 50%;
-      height: 80%;
-      transform: translate();
+      height: 50%;
       z-index: 1;
       position: absolute;
       background: radial-gradient( closest-side, #4CAF50, #008CBA);
@@ -163,21 +156,10 @@
     let times = 0;
     let bg = document.getElementById("title").addEventListener("mousemove", function(e){
       let circle = document.getElementById("background");
+      //smooth movement of the dive
+      circle.style.transition = "all 0.5s";
       circle.style.left = e.clientX - circle.offsetWidth/2 + "px";
       circle.style.top = e.clientY - circle.offsetHeight/2 + "px";
-      //make sure the div cannot go out of the page
-      if(circle.offsetLeft < 0){
-        circle.style.left = 0;
-      }
-      if(circle.offsetTop < 0){
-        circle.style.top = 0;
-      }
-      if(circle.offsetLeft + circle.offsetWidth > window.innerWidth){
-        circle.style.left = window.innerWidth - circle.offsetWidth + "px";
-      }
-      if(circle.offsetTop + circle.offsetHeight > window.innerHeight){
-        circle.style.top = window.innerHeight - circle.offsetHeight + "px";
-      }
     })
   </script>
 </body>
