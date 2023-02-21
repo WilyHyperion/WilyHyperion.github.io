@@ -17,20 +17,23 @@
       left: 0;
       bottom: 0;
       right: 0;
+      z-index: -2;
       overflow: auto;
     }
     .title h2 {
+      z-index: 3;
       font-family: "Righteous", sans-serif;
       font-size: 50px;
     }
     .title {
       width: 100%;
-      background-color: #607744;
+      background-color: #008CBA;
       text-align: center;
       height: 90%;
       display: flex;
       justify-content: center;
       align-content: center;
+      z-index: -2;
       flex-direction: column;
     }
     .EntryOne {
@@ -96,16 +99,27 @@
       }
     }
     .letter {
-        display: inline-block;
+      display: inline-block;
       color: black;
       animation: fadeIn 3s;
+    }
+    #background{
+      width: 100%;
+      opacity: 90%;
+      border-radius: 50%;
+      height: 80%;
+      transform: translate();
+      z-index: 1;
+      position: absolute;
+      background: radial-gradient( closest-side, #4CAF50, #008CBA);
     }
   </style>
 </head>
 <body>
   <!--https://coolors.co/b39c4d-768948-607744-34623f-1e2f23-->
   <div class="page">
-    <div class="title">
+    <div class="title" id = "title">
+      <div id="background"></div>
       <h2>
         <div class="letter">W</div>
         <div class="letter">i</div>
@@ -146,5 +160,24 @@
     for (let i = 0; i < letters.length; i++) {
       letters[i].style.animationDuration = 2 + (i * 0.6) + "s";
     }
+    let times = 0;
+    let bg = document.getElementById("title").addEventListener("mousemove", function(e){
+      let circle = document.getElementById("background");
+      circle.style.left = e.clientX - circle.offsetWidth/2 + "px";
+      circle.style.top = e.clientY - circle.offsetHeight/2 + "px";
+      //make sure the div cannot go out of the page
+      if(circle.offsetLeft < 0){
+        circle.style.left = 0;
+      }
+      if(circle.offsetTop < 0){
+        circle.style.top = 0;
+      }
+      if(circle.offsetLeft + circle.offsetWidth > window.innerWidth){
+        circle.style.left = window.innerWidth - circle.offsetWidth + "px";
+      }
+      if(circle.offsetTop + circle.offsetHeight > window.innerHeight){
+        circle.style.top = window.innerHeight - circle.offsetHeight + "px";
+      }
+    })
   </script>
 </body>
