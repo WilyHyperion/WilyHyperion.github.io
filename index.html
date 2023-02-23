@@ -30,6 +30,7 @@
       font-size: 50px;
     }
     .title {
+      overflow: hidden;
       position: relative;
     overflow-x:hidden;
       width: 100%;
@@ -104,8 +105,11 @@
       animation: fadeIn 3s;
     }
     #background{
-      left: 1px;
-      right: 1px;
+      -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
       overflow-x:hidden;
       width: 70%;
       opacity: 90%;
@@ -163,18 +167,28 @@
       letters[i].style.animationDuration = 2 + (i * 0.6) + "s";
     }
     let times = 0;
+    let mousePos = [0, 0];
+
+    var intervalId = window.setInterval(function(){
+      var v = new Event("mousemove");
+      v.clientX = mousePos[0];
+      v.clientY = mousePos[1];
+      move(v);
+    }, 60);
+    const speed = 10;
     let bg = document.getElementById("title").addEventListener("mousemove", function(e){
+      mousePos = [e.clientX, e.clientY];
+    });
+    function move(e){
       let circle = document.getElementById("background");
       let rect = circle.getBoundingClientRect();
       var xChange = (e.clientX - circle.offsetWidth/2) - (rect.left);
       var yChange = (e.clientY - circle.offsetHeight/2) - (rect.top);
-    //  console.log("first", xChange, yChange)
       var normDist =  Math.sqrt(Math.pow(xChange, 2) + Math.pow(yChange, 2));
-      console.log(normDist)
       xChange = xChange/normDist;
       yChange = yChange/normDist;
-      circle.style.left = Math.trunc(rect.left + (xChange * 10)) + "px";
-      circle.style.top = Math.trunc(rect.top + (yChange * 10)) + "px";
-    })
+      circle.style.left = Math.trunc(rect.left + (xChange * speed)) + "px";
+      circle.style.top = Math.trunc(rect.top + (yChange * speed)) + "px";
+    }
   </script>
 </body>
