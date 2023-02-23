@@ -98,6 +98,8 @@
       animation: fadeIn 3s;
     }
     #background{
+      left: 1px;
+      right: 1px;
       width: 70%;
       opacity: 90%;
       border-radius: 50%;
@@ -156,10 +158,16 @@
     let times = 0;
     let bg = document.getElementById("title").addEventListener("mousemove", function(e){
       let circle = document.getElementById("background");
-      //smooth movement of the dive
-      circle.style.transition = "all 0.5s";
-      circle.style.left = e.clientX - circle.offsetWidth/2 + "px";
-      circle.style.top = e.clientY - circle.offsetHeight/2 + "px";
+      let rect = circle.getBoundingClientRect();
+      var xChange = (e.clientX - circle.offsetWidth/2) - (rect.left);
+      var yChange = (e.clientY - circle.offsetHeight/2) - (rect.top);
+    //  console.log("first", xChange, yChange)
+      var normDist =  Math.sqrt(Math.pow(xChange, 2) + Math.pow(yChange, 2));
+      console.log(normDist)
+      xChange = xChange/normDist;
+      yChange = yChange/normDist;
+      circle.style.left = Math.trunc(rect.left + (xChange * 10)) + "px";
+      circle.style.top = Math.trunc(rect.top + (yChange * 10)) + "px";
     })
   </script>
 </body>
