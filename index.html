@@ -1,20 +1,20 @@
 <!DOCTYPE html>
+
 <head>
   <title>WilyHyperion</title>
-  <link
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Righteous"
-  />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Righteous" />
   <style>
-    :root {
-    }
+    :root {}
+
     html {
       overflow-x: hidden;
     }
+
     body {
       overflow-x: hidden;
       background-color: #1e2f23;
     }
+
     .page {
       position: fixed;
       top: 0;
@@ -24,11 +24,13 @@
       z-index: -2;
       overflow: auto;
     }
+
     .title h2 {
       z-index: 3;
       font-family: "Righteous", sans-serif;
       font-size: 50px;
     }
+
     .title {
       overflow: hidden;
       position: relative;
@@ -43,6 +45,7 @@
       z-index: -2;
       flex-direction: column;
     }
+
     .EntryOne {
       height: 110%;
       padding-bottom: 20px;
@@ -50,6 +53,7 @@
       justify-content: center;
       align-content: center;
     }
+
     .leftEntryOne {
       z-index: 2;
       width: 80%;
@@ -60,50 +64,60 @@
       flex-direction: column;
       background-color: #34623f;
     }
+
     .rightEntryOne {
       z-index: 2;
       width: 50%;
       height: 90%;
       background-color: #34623f;
     }
+
     .leftEntryOne h1 {
       padding: 20px;
       text-align: left;
       font-size: 50px;
     }
+
     .leftEntryOne p {
       padding: 5px;
       line-height: 2;
       font-size: 20px;
     }
+
     .leftEntryTwo {
       width: 50%;
       height: 400px;
       background-color: #ff0000;
     }
+
     .rightEntryTwo {
       width: 50%;
       height: 400px;
       background-color: gray;
     }
+
     .EntryTwo {
       display: flex;
       justify-content: center;
       align-content: center;
     }
+
     @keyframes fadeIn {
       0% {
         opacity: 0;
       }
+
       100% {
         opacity: 1;
       }
     }
+
     .letter {
       display: inline-block;
       color: black;
       animation: fadeIn 3s;
     }
+
     #background {
       left: 0px;
       top: 0px;
@@ -121,6 +135,7 @@
       position: absolute;
       background: radial-gradient(closest-side, #00ff08, #008cba);
     }
+
     .box {
       width: 80%;
       height: 90%;
@@ -129,6 +144,7 @@
       z-index: 2;
       position: absolute;
     }
+
     .ball {
       width: 3%;
       height: 3%;
@@ -139,6 +155,7 @@
       right: 0px;
       position: absolute;
     }
+
     .toggleBall {
       position: absolute;
       width: 10%;
@@ -146,6 +163,7 @@
     }
   </style>
 </head>
+
 <body>
   <!--https://coolors.co/b39c4d-768948-607744-34623f-1e2f23-->
   <div class="page">
@@ -169,7 +187,7 @@
     <div class="EntryOne">
       <button onclick="toggleBall()">Click</button>
       <div class="box">
-        <div class="ball" id="ball" data-Xvec = "0" data-Yvec = "0"></div>
+        <div class="ball" id="ball" data-Xvec="0" data-Yvec="0"></div>
       </div>
     </div>
     <div class="EntryTwo">
@@ -189,52 +207,54 @@
       newBall.setAttribute("data-Xvec", Math.random() + 1);
       newBall.setAttribute("data-Yvec", Math.random() + 1);
       box.appendChild(newBall);
-      for(let ball of document.querySelectorAll(".ball")){
+      for (let ball of document.querySelectorAll(".ball")) {
         ball.setAttribute("data-Xvec", Math.random() + 1);
         ball.setAttribute("data-Yvec", Math.random() + 1);
         if (!ballMove) {
           //set the top and left to a random spot in the box
           ball.style.top = Math.random() * (box.offsetHeight - ball.offsetHeight) + "px";
           ball.style.left = Math.random() * (box.offsetWidth - ball.offsetWidth) + "px";
+        }
       }
-    }
 
     }
     let ballSpeed = 10;
+
     function moveBall() {
-      let box = document.querySelector(".box");
-      for(let ball of document.querySelectorAll(".ball")){
-      let ballVec = [ball.getAttribute("data-Xvec"), ball.getAttribute("data-Yvec")];
-      let boxWidth = box.offsetWidth;
-      let boxHeight = box.offsetHeight;
-      let ballWidth = ball.offsetWidth;
-      let ballHeight = ball.offsetHeight;
-      let ballX = ball.offsetLeft;
-      let ballY = ball.offsetTop;
-      let boxX = box.offsetLeft;
-      let boxY = box.offsetTop;
-      let x = ballX + ballVec[0] * ballSpeed;
-      let y = ballY + ballVec[1] * ballSpeed;
-      if (x < 0 || x > boxWidth - ballWidth) {
-        ballVec[0] = -ballVec[0];
-        x = ballX + ballVec[0] * ballSpeed;
-      }
-      if (y < 0 || y > boxHeight - ballHeight) {
-        ballVec[1] = -ballVec[1];
-        y = ballY + ballVec[1] * ballSpeed;
-      }
-      ball.style.left = x + "px";
-      ball.style.top = y + "px";
-      ball.setAttribute("data-Xvec", ballVec[0]);
-      ball.setAttribute("data-Yvec", ballVec[1]);
-    }
+        let box = document.querySelector(".box");
+        let borderSize = getComputedStyle(box, null).getPropertyValue('border-left-width').slice(0, -2);  
+        for (let ball of document.querySelectorAll(".ball")) {
+          let ballVec = [ball.getAttribute("data-Xvec"), ball.getAttribute("data-Yvec")];
+          let boxWidth = box.offsetWidth;
+          let boxHeight = box.offsetHeight;
+          let ballWidth = ball.offsetWidth;
+          let ballHeight = ball.offsetHeight;
+          let ballX = ball.offsetLeft;
+          let ballY = ball.offsetTop;
+          let boxX = box.offsetLeft;
+          let boxY = box.offsetTop;
+          let x = ballX + ballVec[0] * ballSpeed;
+          let y = ballY + ballVec[1] * ballSpeed;
+          if (x < borderSize || x > boxWidth - ballWidth - borderSize) {
+            ballVec[0] = -ballVec[0];
+            x = ballX + ballVec[0] * ballSpeed;
+          }
+          if (y < borderSize || y > boxHeight - ballHeight - borderSize) {
+            ballVec[1] = -ballVec[1];
+            y = ballY + ballVec[1] * ballSpeed;
+          }
+          ball.style.left = x + "px";
+          ball.style.top = y + "px";
+          ball.setAttribute("data-Xvec", ballVec[0]);
+          ball.setAttribute("data-Yvec", ballVec[1]);
+        }
     }
     let letters = document.querySelectorAll(".letter");
     for (let i = 0; i < letters.length; i++) {
       letters[i].style.animationDuration = 2 + i * 0.6 + "s";
     }
     const follower = document.getElementById("background");
-    let mouseY  = 50;
+    let mouseY = 50;
     let mouseX = 50;
     document.addEventListener("mousemove", (event) => {
       mouseX = event.clientX;
