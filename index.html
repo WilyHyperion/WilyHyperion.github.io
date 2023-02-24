@@ -127,7 +127,7 @@
       -ms-filter: blur(5px);
       filter: blur(5px);
       overflow-x: hidden;
-      width: 70%;
+      width: 50%;
       opacity: 90%;
       border-radius: 50%;
       height: 50%;
@@ -234,7 +234,7 @@
 
     function moveBall() {
         let box = document.querySelector(".box");
-        let borderSize = getComputedStyle(box, null).getPropertyValue('border-left-width').slice(0, -2) * 2;  
+        let borderSize = getComputedStyle(box, null).getPropertyValue('border-left-width').slice(0, -2);  
         for (let ball of document.querySelectorAll(".ball")) {
           let ballVec = [ball.getAttribute("data-Xvec"), ball.getAttribute("data-Yvec")];
           let boxWidth = box.offsetWidth;
@@ -247,11 +247,11 @@
           let boxY = box.offsetTop;
           let x = ballX + ballVec[0] * ballSpeed;
           let y = ballY + ballVec[1] * ballSpeed;
-          if (x < borderSize || x > boxWidth - ballWidth - borderSize) {
+          if (x < borderSize/2 || x > boxWidth - ballWidth - borderSize * 2) {
             ballVec[0] = -ballVec[0];
             x = ballX + ballVec[0] * ballSpeed;
           }
-          if (y < borderSize || y > boxHeight - ballHeight - borderSize) {
+          if (y < borderSize/2 || y > boxHeight - ballHeight - borderSize * 2) {
             ballVec[1] = -ballVec[1];
             y = ballY + ballVec[1] * ballSpeed;
           }
