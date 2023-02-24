@@ -8,11 +8,11 @@
   <style>
     :root {
     }
-    html{
-        overflow-x:hidden;
+    html {
+      overflow-x: hidden;
     }
     body {
-        overflow-x:hidden;
+      overflow-x: hidden;
       background-color: #1e2f23;
     }
     .page {
@@ -32,9 +32,9 @@
     .title {
       overflow: hidden;
       position: relative;
-    overflow-x:hidden;
+      overflow-x: hidden;
       width: 100%;
-      background-color: #008CBA;
+      background-color: #008cba;
       text-align: center;
       height: 90%;
       display: flex;
@@ -104,22 +104,24 @@
       color: black;
       animation: fadeIn 3s;
     }
-    #background{
+    #background {
+      left: 0px;
+      top: 0px;
       -webkit-filter: blur(5px);
       -moz-filter: blur(5px);
       -o-filter: blur(5px);
       -ms-filter: blur(5px);
       filter: blur(5px);
-      overflow-x:hidden;
+      overflow-x: hidden;
       width: 70%;
       opacity: 90%;
       border-radius: 50%;
       height: 50%;
       z-index: 1;
       position: absolute;
-      background: radial-gradient( closest-side, #00ff08, #008CBA);
+      background: radial-gradient(closest-side, #00ff08, #008cba);
     }
-    .box{
+    .box {
       width: 80%;
       height: 90%;
       border: 10px black solid;
@@ -127,9 +129,9 @@
       z-index: 2;
       position: absolute;
     }
-    .ball{
-      width: 10%;
-      height: 10%;
+    .ball {
+      width: 3%;
+      height: 3%;
       border-radius: 50%;
       background-color: green;
       z-index: 3;
@@ -137,7 +139,7 @@
       right: 0px;
       position: absolute;
     }
-    .toggleBall{
+    .toggleBall {
       position: absolute;
       width: 10%;
       height: 3%;
@@ -147,7 +149,7 @@
 <body>
   <!--https://coolors.co/b39c4d-768948-607744-34623f-1e2f23-->
   <div class="page">
-    <div class="title" id = "title">
+    <div class="title" id="title">
       <div id="background"></div>
       <h2>
         <div class="letter">W</div>
@@ -166,12 +168,10 @@
     </div>
     <div class="EntryOne">
       <button onclick="toggleBall()">Click</button>
-        <div class = "box">
-          <div class = "ball" id = "ball">
-
-          </div>
-        </div>
+      <div class="box">
+        <div class="ball" id="ball" data-Xvec = "0" data-Yvec = "0"></div>
       </div>
+    </div>
     <div class="EntryTwo">
       <div class="leftEntryTwo"></div>
       <div class="rightEntryTwo"></div>
@@ -179,74 +179,86 @@
   </div>
   <script>
     let ballMove = false;
-    function toggleBall(){
-      let ball = document.querySelector(".ball");
+    function toggleBall() {
+
       ballMove = !ballMove;
-      if(!ballMove){
-        ball.style.left = 0;
-        ball.style.top = 0;
+
+      let box = document.querySelector(".box");
+      let newBall = document.createElement("div");
+      newBall.classList.add("ball");
+      newBall.setAttribute("data-Xvec", Math.random() + 1);
+      newBall.setAttribute("data-Yvec", Math.random() + 1);
+      box.appendChild(newBall);
+      for(let ball of document.querySelectorAll(".ball")){
+        ball.setAttribute("data-Xvec", Math.random() + 1);
+        ball.setAttribute("data-Yvec", Math.random() + 1);
+        if (!ballMove) {
+          //set the top and left to a random spot in the box
+          ball.style.top = Math.random() * (box.offsetHeight - ball.offsetHeight) + "px";
+          ball.style.left = Math.random() * (box.offsetWidth - ball.offsetWidth) + "px";
+      }
     }
-    
-  }
-    var ballSpeed = 1;
-    var ballVector = [Math.random() * 2 - 1, Math.random() * 2 - 1];
-    function norm(vector){
-      let length = Math.sqrt(vector[0] * vector[0] + vector[1] * vector[1]);
-      vector[0] /= length;
-      vector[1] /= length;
-      return vector;
+
     }
-    function moveBall(){
-      let box = document.querySelector(".box").getBoundingClientRect();
-      let i  = document.getElementById("ball");
-        let rect = i.getBoundingClientRect();
-        //alert("left " + i.style.left);
-        i.style.left = (rect.left +  ballVector[0] * ballSpeed ) + "px";//(parseFloat(i.style.left, 10) +  ballVector[0] * ballSpeed )) + "px";
-        i.style.top = (rect.top + ballVector[1] * ballSpeed) + "px";
-  //  }
+    let ballSpeed = 10;
+    function moveBall() {
+      let box = document.querySelector(".box");
+      for(let ball of document.querySelectorAll(".ball")){
+      let ballVec = [ball.getAttribute("data-Xvec"), ball.getAttribute("data-Yvec")];
+      let boxWidth = box.offsetWidth;
+      let boxHeight = box.offsetHeight;
+      let ballWidth = ball.offsetWidth;
+      let ballHeight = ball.offsetHeight;
+      let ballX = ball.offsetLeft;
+      let ballY = ball.offsetTop;
+      let boxX = box.offsetLeft;
+      let boxY = box.offsetTop;
+      let x = ballX + ballVec[0] * ballSpeed;
+      let y = ballY + ballVec[1] * ballSpeed;
+      if (x < 0 || x > boxWidth - ballWidth) {
+        ballVec[0] = -ballVec[0];
+        x = ballX + ballVec[0] * ballSpeed;
+      }
+      if (y < 0 || y > boxHeight - ballHeight) {
+        ballVec[1] = -ballVec[1];
+        y = ballY + ballVec[1] * ballSpeed;
+      }
+      ball.style.left = x + "px";
+      ball.style.top = y + "px";
+      ball.setAttribute("data-Xvec", ballVec[0]);
+      ball.setAttribute("data-Yvec", ballVec[1]);
+    }
     }
     let letters = document.querySelectorAll(".letter");
     for (let i = 0; i < letters.length; i++) {
-      letters[i].style.animationDuration = 2 + (i * 0.6) + "s";
+      letters[i].style.animationDuration = 2 + i * 0.6 + "s";
     }
-    let times = 0;
-    let mousePos = [0, 0];
-    var intervalId = window.setInterval(function(){
-      var v = new Event("mousemove");
-      v.clientX = mousePos[0]; 
-      v.clientY = mousePos[1];
-      if(document.getElementById("background").getBoundingClientRect().left != mousePos[0] && document.getElementById("background").getBoundingClientRect().top != mousePos[1]){
-        move(v);
-      }
-      if(ballMove){
+    const follower = document.getElementById("background");
+    let mouseY  = 50;
+    let mouseX = 50;
+    document.addEventListener("mousemove", (event) => {
+      mouseX = event.clientX;
+      mouseY = event.clientY;
+    });
+    const maxDistance = 15;
+    setInterval(() => {
+      if (ballMove) {
         moveBall();
       }
-    }, 30);
-    const speed = 10;
-    let bg = document.getElementById("title").addEventListener("mousemove", function(e){
-      mousePos = [e.clientX, e.clientY];
-    });
-    // get document coordinates of the element
-  function getCoords(elem) {
-    let box = elem.getBoundingClientRect();
+      const followerX = follower.offsetLeft + follower.offsetWidth / 2;
+      const followerY = follower.offsetTop + follower.offsetHeight / 2;
+      const deltaX = mouseX - followerX;
+      const deltaY = mouseY - followerY;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-    return {
-      top: box.top + window.pageYOffset,
-      right: box.right + window.pageXOffset,
-      bottom: box.bottom + window.pageYOffset,
-      left: box.left + window.pageXOffset
-  };
-}
-    function move(e){
-      let circle = document.getElementById("background");
-      let rect = circle.getBoundingClientRect();
-      var xChange = (e.clientX - circle.offsetWidth/2) - (rect.left);
-      var yChange = (e.clientY - circle.offsetHeight/2) - (rect.top);
-      var normDist =  Math.sqrt(Math.pow(xChange, 2) + Math.pow(yChange, 2));
-      xChange = xChange/normDist;
-      yChange = yChange/normDist;
-      circle.style.left = Math.trunc(rect.left + (xChange * speed)) + "px";
-      circle.style.top = Math.trunc(rect.top + (yChange * speed)) + "px";
-    }
+      if (distance > maxDistance) {
+        const ratio = maxDistance / distance;
+        const moveX = ratio * deltaX;
+        const moveY = ratio * deltaY;
+        follower.style.left = follower.offsetLeft + moveX + "px";
+        follower.style.top = follower.offsetTop + moveY + "px";
+      }
+
+    }, 60);
   </script>
 </body>
