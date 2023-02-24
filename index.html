@@ -198,31 +198,43 @@
   <script>
     let ballMove = false;
     function toggleBall() {
-
       ballMove = !ballMove;
 
       let box = document.querySelector(".box");
       let newBall = document.createElement("div");
       newBall.classList.add("ball");
-      newBall.setAttribute("data-Xvec", Math.random() + 1);
-      newBall.setAttribute("data-Yvec", Math.random() + 1);
       box.appendChild(newBall);
       for (let ball of document.querySelectorAll(".ball")) {
-        ball.setAttribute("data-Xvec", Math.random() + 1);
-        ball.setAttribute("data-Yvec", Math.random() + 1);
-        if (!ballMove) {
-          //set the top and left to a random spot in the box
-          ball.style.top = Math.random() * (box.offsetHeight - ball.offsetHeight) + "px";
-          ball.style.left = Math.random() * (box.offsetWidth - ball.offsetWidth) + "px";
-        }
-      }
+      let ballVec = [Math.random() + 1 * 2 - 2, Math.random() * 2 - 1];
+      norm(ballVec);
+      ball.setAttribute("data-Xvec", ballVec[0]);
+      ball.setAttribute("data-Yvec", ballVec[1]);
 
+        if (!ballMove) {
+          //set the top and left to a random spot in the box, taking in acount the border
+          let boxWidth = box.offsetWidth;
+          let boxHeight = box.offsetHeight;
+          let ballWidth = ball.offsetWidth;
+          let ballHeight = ball.offsetHeight;
+          let borderSize = getComputedStyle(box, null).getPropertyValue('border-left-width').slice(0, -2);
+          let ballX = Math.random() * (boxWidth - ballWidth - borderSize * 2) + borderSize;
+          let ballY = Math.random() * (boxHeight - ballHeight - borderSize * 2) + borderSize;
+          ball.style.left = ballX + "px";
+          ball.style.top = ballY + "px";
+
+          }
+      }
+    }
+    function norm(vec){
+      let mag = Math.sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
+      vec[0] /= mag;
+      vec[1] /= mag;
     }
     let ballSpeed = 10;
 
     function moveBall() {
         let box = document.querySelector(".box");
-        let borderSize = getComputedStyle(box, null).getPropertyValue('border-left-width').slice(0, -2);  
+        let borderSize = getComputedStyle(box, null).getPropertyValue('border-left-width').slice(0, -2) * 2;  
         for (let ball of document.querySelectorAll(".ball")) {
           let ballVec = [ball.getAttribute("data-Xvec"), ball.getAttribute("data-Yvec")];
           let boxWidth = box.offsetWidth;
