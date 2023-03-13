@@ -189,7 +189,7 @@
       </h2>
     </div>
     <div class="EntryOne">
-      <button onclick="toggleBall()">Click</button>
+      <button onclick="toggleBall()"></button>
       <div class="box">
         <div class="ball" id="ball" data-Xvec="0" data-Yvec="0"></div>
       </div>
@@ -206,23 +206,41 @@
 
       let box = document.querySelector(".box");
       let newBall = document.createElement("div");
+      newBall.setAttribute("mousedMoved", false);
+      newBall.addEventListener("click", function () {
+        
+        this.remove();
+      });
+      newBall.addEventListener("mouseover", function () {
+
+        if(newBall.getAttribute("mousedMoved") == "false"){
+          newBall.setAttribute("data-Xvec", Math.random() * 2 - 1);
+          newBall.setAttribute("data-Yvec", Math.random() * 2 - 1);
+          newBall.setAttribute("mousedMoved", true);
+        }
+        this.style.backgroundColor = "red";
+      });
+      newBall.addEventListener("mouseout", function () {
+        newBall.setAttribute("mousedMoved", false);
+        this.style.backgroundColor = "green";
+      });
+
       newBall.classList.add("ball");
-      newBall.setAttribute("data-Xvec", Math.random() * 2 - 1);
-      newBall.setAttribute("data-Yvec", Math.random() * 2 - 1);
       box.appendChild(newBall);
       for (let ball of document.querySelectorAll(".ball")) {
         ball.setAttribute("data-Xvec", Math.random() * 2 - 1);
         ball.setAttribute("data-Yvec", Math.random() * 2 - 1);
         if (!ballMove) {
-          //set the top and left to a random spot in the box
-          ball.style.top =
-            Math.random() * (box.offsetHeight - ball.offsetHeight) + "px";
-          ball.style.left =
-            Math.random() * (box.offsetWidth - ball.offsetWidth) + "px";
-        }
+          let boxpadding = getComputedStyle(box, null).getPropertyValue('padding-left').slice(0, -2); 
+          ball.style.top = getRandomArbitrary(boxpadding * 4, box.offsetHeight - ball.offsetHeight - boxpadding- 50)  + "px";
+          ball.style.left = getRandomArbitrary(boxpadding * 4, box.offsetWidth - ball.offsetWidth - boxpadding - 50) + "px";   }
       }
     }
-    let ballSpeed = 15;
+    function getRandomArbitrary(min, max) {
+      return Math.random() * ((max + 1) - min) + min;
+    }
+  const MOUSE_SIZE = 20;
+    let ballSpeed = 3;
     function moveBall() {
       let box = document.querySelector(".box");
       let borderSize = getComputedStyle(box, null).getPropertyValue('border-left-width').slice(0, -2);  
@@ -259,18 +277,19 @@
             ballY + ballHeight > y
           ) {
             ballVec = randomRotate(ballVec, -1, 1);
-            //     ball.setAttribute("data-Xvec", -1 * ball.getAttribute("data-Xvec"));
-            //   ball.setAttribute("data-Yvec", -1 * ball.getAttribute("data-Yvec"));
-          }
+            }
         }
-        if (x < borderSize / 2 || x > boxWidth - ballWidth - borderSize * 1) {
+        if (x  + ballHeight < borderSize * 2|| x > (boxWidth - ballWidth) - borderSize * 2) {
           ballVec[0] = -ballVec[0];
           x = ballX + ballVec[0] * ballSpeed;
         }
-        if (y < borderSize / 2 || y > boxHeight - ballHeight - borderSize * 1) {
+        if (y + ballHeight  < borderSize * 2|| y >( boxHeight - ballHeight )- borderSize * 2) {
           ballVec[1] = -ballVec[1];
           y = ballY + ballVec[1] * ballSpeed;
         }
+         x = ballX + ballVec[0] * ballSpeed;
+         y = ballY + ballVec[1] * ballSpeed;
+        
         ball.style.left = x + "px";
         ball.style.top = y + "px";
         ball.setAttribute("data-Xvec", ballVec[0]);
