@@ -191,7 +191,6 @@
     <div class="EntryOne">
       <button onclick="toggleBall()"></button>
       <div class="box">
-        <div class="ball" id="ball" data-Xvec="0" data-Yvec="0"></div>
       </div>
     </div>
     <div class="EntryTwo">
@@ -201,9 +200,9 @@
   </div>
   <script>
     let ballMove = false;
+    let numBall = 1;
     function toggleBall() {
-      ballMove = !ballMove;
-
+      for(let i = 0; i < numBall; i++){
       let box = document.querySelector(".box");
       let newBall = document.createElement("div");
       newBall.setAttribute("mousedMoved", false);
@@ -211,6 +210,8 @@
         
         this.remove();
       });
+      newBall.style.top = Math.random() * (box.offsetWidth - 10)+ 10+ "px";
+      newBall.style.left = Math.random() * (box.offsetHeight- 10) +10+ "px";      
       newBall.addEventListener("mouseover", function () {
 
         if(newBall.getAttribute("mousedMoved") == "false"){
@@ -227,6 +228,7 @@
 
       newBall.classList.add("ball");
       box.appendChild(newBall);
+      }
       for (let ball of document.querySelectorAll(".ball")) {
         ball.setAttribute("data-Xvec", Math.random() * 2 - 1);
         ball.setAttribute("data-Yvec", Math.random() * 2 - 1);
@@ -239,7 +241,7 @@
     function getRandomArbitrary(min, max) {
       return Math.random() * ((max + 1) - min) + min;
     }
-  const MOUSE_SIZE = 20;
+  const MOUSE_SIZE = 80;
     let ballSpeed = 3;
     function moveBall() {
       let box = document.querySelector(".box");
@@ -310,13 +312,22 @@
     let mouseY = 50;
     let mouseX = 50;
     document.addEventListener("mousemove", (event) => {
+
       mouseX = event.clientX;
       mouseY = event.clientY;
     });
     const maxDistance = 15;
     setInterval(() => {
+      ballMove = true;
+      if(document.querySelectorAll(".ball").length == 0){
+        numBall+= 1;
+        ballSpeed += 0.5;
+        toggleBall();
+        
+      }
       if (ballMove) {
-        moveBall();
+
+      moveBall();
       }
       const followerX = follower.offsetLeft + follower.offsetWidth / 2;
       const followerY = follower.offsetTop + follower.offsetHeight / 2;
