@@ -209,14 +209,16 @@
         
         this.remove();
       });
-      newBall.style.top = Math.random() * (box.offsetWidth - 10)+ 10+ "px";
-      newBall.style.left = Math.random() * (box.offsetHeight- 10) +10+ "px";      
+      newBall.style.top = Math.random() * (box.offsetWidth - 300)+ 40+ "px";
+      newBall.style.left = Math.random() * (box.offsetHeight- 300) +40+ "px";      
       newBall.addEventListener("mouseover", function () {
 
         if(newBall.getAttribute("mousedMoved") == "false"){
+          newBall.setAttribute("mousedMoved", true);
+          setTimeout(function () {
           newBall.setAttribute("data-Xvec", Math.random() * 2 - 1);
           newBall.setAttribute("data-Yvec", Math.random() * 2 - 1);
-          newBall.setAttribute("mousedMoved", true);
+          }, 60);
         }
         this.style.backgroundColor = "red";
       });
@@ -320,7 +322,7 @@
       ballMove = true;
       if(document.querySelectorAll(".ball").length == 0){
         numBall+= 1;
-        ballSpeed += 0.5;
+        ballSpeed +=1.0;
         toggleBall();
         
       }
